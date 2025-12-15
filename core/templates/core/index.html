@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="glass-card hero-glass">
+        <div class="hero-content">
+            <h1>Able Connect</h1>
+            <h2>Link up, Skill up, Rise up!</h2>
+            <p>Connecting Persons With Disabilities with opportunities, services, and community.</p>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="glass-card content-glass">
+            <h2>About Us</h2>
+            <p>Able Connect is a platform dedicated to empowering Persons With Disabilities by providing a space for
+                social
+                connection, freelance opportunities, and access to specialized medical services.</p>
+        </div>
+    </div>
+</section>
+
+<section class="mission-section">
+    <div class="container">
+        <div class="glass-card content-glass mission-glass">
+            <h2>Our Mission</h2>
+            <p>To bridge the gap and create an inclusive digital ecosystem where everyone can thrive, connect, and
+                access
+                essential services with dignity and ease.</p>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="services-section">
+    <div class="container">
+        <div class="glass-card content-glass">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card" onclick="showServiceDetails('ksl')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/ksl.jpg" alt="KSL Training & Interpretation">
+                    </div>
+                    <h3>KSL Training & Interpretation</h3>
+                </div>
+                <div class="service-card" onclick="showServiceDetails('tubonge')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/tubonge.jpg" alt="Tubonge Connect">
+                    </div>
+                    <h3>Tubonge Connect</h3>
+                </div>
+                <div class="service-card" onclick="showServiceDetails('medical')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/medical.jpg" alt="Medical Services">
+                    </div>
+                    <h3>Medical Services</h3>
+                </div>
+                <div class="service-card" onclick="showServiceDetails('freelance')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/freelance.jpg" alt="Freelance Jobs">
+                    </div>
+                    <h3>Freelance Jobs</h3>
+                </div>
+                <div class="service-card" onclick="showServiceDetails('mentorship')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/mentorship.jpg" alt="Mentorship">
+                    </div>
+                    <h3>Mentorship</h3>
+                </div>
+                <div class="service-card" onclick="showServiceDetails('events')">
+                    <div class="service-image-placeholder">
+                        <img src="/static/images/events.jpg" alt="Events & Workshops">
+                    </div>
+                    <h3>Events & Workshops</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Details Modals -->
+<div id="service-modal" class="modal">
+    <div class="modal-content service-modal-content">
+        <span class="close">&times;</span>
+        <img id="service-image" src="" alt="" class="service-modal-image">
+        <h2 id="service-title"></h2>
+        <p id="service-description"></p>
+        <div id="service-features"></div>
+        <div id="service-action"></div>
+    </div>
+</div>
+
+<script>
+    function showServiceDetails(service) {
+        const modal = document.getElementById('service-modal');
+        const title = document.getElementById('service-title');
+        const desc = document.getElementById('service-description');
+        const features = document.getElementById('service-features');
+        const action = document.getElementById('service-action');
+        const image = document.getElementById('service-image');
+
+        modal.style.display = 'block';
+
+        if (service === 'ksl') {
+            image.src = '/static/images/ksl.jpg';
+            image.alt = 'KSL Training & Interpretation';
+            title.innerText = 'KSL Training & Interpretation';
+            desc.innerHTML = 'Comprehensive Kenya Sign Language (KSL) training programs designed for individuals, families, and professionals. Our certified instructors offer beginner to advanced courses in Kenya Sign Language, the official sign language of Kenya. We also provide professional interpretation services for medical appointments, business meetings, educational settings, and community events. Connect with qualified interpreters who understand the importance of clear communication and cultural sensitivity in the Kenyan context.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>Beginner to Advanced KSL Courses</li>
+                    <li>Professional KSL Interpretation Services</li>
+                    <li>Certified KSL Instructors</li>
+                    <li>Flexible Scheduling</li>
+                    <li>Online and In-Person Options</li>
+                </ul>
+            `;
+            action.innerHTML = '<a href="https://www.youtube.com/" target="_blank" class="btn-primary">Enrol for KSL</a>';
+        } else if (service === 'tubonge') {
+            image.src = '/static/images/tubonge.jpg';
+            image.alt = 'Tubonge Connect';
+            title.innerText = 'Tubonge Connect';
+            desc.innerHTML = 'Join our vibrant social platform designed specifically for persons with disabilities and their allies. Share experiences, connect with friends, post updates, and engage with a supportive community. Tubonge Connect provides a safe, accessible space where you can express yourself, share your journey, find support, and build meaningful relationships with others who understand your experiences.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>Share Posts, Photos, and Updates</li>
+                    <li>Connect with Community Members</li>
+                    <li>Private Messaging</li>
+                    <li>Accessible Interface</li>
+                    <li>Support Groups and Forums</li>
+                    <li>Privacy Controls</li>
+                </ul>
+            `;
+            action.innerHTML = '<button class="btn-primary" onclick="window.location.href=\'/tubonge/\'">Join Tubonge</button>';
+        } else if (service === 'medical') {
+            image.src = '/static/images/medical.jpg';
+            image.alt = 'Medical Services';
+            title.innerText = 'Medical Services';
+            desc.innerHTML = 'Connect with specialized medical professionals who understand the unique needs of people with disabilities. Book appointments with Occupational Therapists, Speech and Sign Therapists, Caregivers, Personal Assistants, doctors, counselors, and specialists experienced in disability care. Our platform makes it easy to find healthcare providers, schedule appointments, and manage your medical care. All professionals are verified and committed to providing accessible, compassionate healthcare services.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>Occupational Therapists</li>
+                    <li>Speech and Sign Therapists</li>
+                    <li>Caregivers and Personal Assistants</li>
+                    <li>Easy Appointment Booking</li>
+                    <li>Verified Professionals</li>
+                    <li>Accessible Facilities</li>
+                    <li>Comprehensive Care Coordination</li>
+                </ul>
+            `;
+            action.innerHTML = '<button class="btn-primary" onclick="window.location.href=\'/medical/\'">Find Healthcare</button>';
+        } else if (service === 'freelance') {
+            image.src = '/static/images/freelance.jpg';
+            image.alt = 'Freelance Jobs';
+            title.innerText = 'Freelance Jobs';
+            desc.innerHTML = 'Discover meaningful employment opportunities designed with accessibility in mind. Our freelance job platform connects talented persons with disabilities to employers who value diversity and inclusion. Browse remote work, flexible positions, and accessible workplace opportunities across various industries including IT, design, writing, customer service, and more. Build your career on your terms with jobs that accommodate your unique needs and showcase your skills.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>Remote and Flexible Opportunities</li>
+                    <li>Accessible Job Listings</li>
+                    <li>Skills-Based Matching</li>
+                    <li>Inclusive Employers</li>
+                    <li>Portfolio Showcase</li>
+                    <li>Fair Compensation</li>
+                    <li>Career Development Resources</li>
+                </ul>
+            `;
+            action.innerHTML = '<button class="btn-primary" onclick="window.location.href=\'/freelance/\'">Browse Jobs</button>';
+        } else if (service === 'mentorship') {
+            image.src = '/static/images/mentorship.jpg';
+            image.alt = 'Mentorship';
+            title.innerText = 'Mentorship Program';
+            desc.innerHTML = 'Connect with experienced mentors who can guide you through your personal and professional journey. Our mentorship program pairs you with successful individuals who have overcome similar challenges and can provide valuable insights, support, and encouragement. Whether you need career guidance, life coaching, skill development, or simply someone who understands your experiences, our mentors are here to help you achieve your goals and unlock your full potential.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>One-on-One Mentorship</li>
+                    <li>Career Guidance and Planning</li>
+                    <li>Skills Development</li>
+                    <li>Peer Support Networks</li>
+                    <li>Goal Setting and Tracking</li>
+                    <li>Flexible Meeting Schedules</li>
+                    <li>Industry-Specific Mentors</li>
+                </ul>
+            `;
+            action.innerHTML = '<button class="btn-primary">Find a Mentor</button>';
+        } else if (service === 'events') {
+            image.src = '/static/images/events.jpg';
+            image.alt = 'Events & Workshops';
+            title.innerText = 'Events & Workshops';
+            desc.innerHTML = 'Participate in empowering community events, skill-building workshops, and networking opportunities designed for persons with disabilities. From professional development seminars to social gatherings, advocacy campaigns to creative workshops, our events calendar is packed with accessible activities that promote learning, growth, and community building. Connect with peers, learn new skills, and be part of a movement creating positive change.';
+            features.innerHTML = `
+                <h3>Key Features:</h3>
+                <ul class="service-features-list">
+                    <li>Professional Development Workshops</li>
+                    <li>Social and Networking Events</li>
+                    <li>Skills Training Sessions</li>
+                    <li>Advocacy and Awareness Campaigns</li>
+                    <li>Virtual and In-Person Events</li>
+                    <li>Accessible Venues</li>
+                    <li>Community Building Activities</li>
+                </ul>
+            `;
+            action.innerHTML = '<button class="btn-primary">View Events Calendar</button>';
+        }
+    }
+</script>
+{% endblock %}

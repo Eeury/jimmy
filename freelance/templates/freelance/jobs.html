@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_client %}
+    <div class="post-job-section">
+        <div class="card">
+            <h2>Post a Job</h2>
+            <form id="post-job-form">
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Amount (KES)</label>
+                    <input type="number" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label>Timeframe</label>
+                    <input type="text" name="timeframe" placeholder="e.g., 2 weeks" required>
+                </div>
+                <button type="submit" class="btn-primary">Post Job</button>
+            </form>
+        </div>
+
+        <div class="my-jobs-list">
+            <h3>My Posted Jobs</h3>
+            <div id="client-jobs-grid" class="jobs-grid">
+                <!-- Client jobs loaded here -->
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="freelance-jobs-section">
+        <h2>Available Jobs</h2>
+        <div id="pwd-jobs-grid" class="jobs-grid">
+            <!-- PWD jobs loaded here -->
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Bid Modal -->
+<div id="bid-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Submit Proposal</h2>
+        <form id="bid-form">
+            <input type="hidden" name="job_id" id="bid-job-id">
+            <div class="form-group">
+                <label>Proposal</label>
+                <textarea name="proposal" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Bid Amount (KES)</label>
+                <input type="number" name="amount" required>
+            </div>
+            <div class="form-group">
+                <label>Timeframe</label>
+                <input type="text" name="timeframe" required>
+            </div>
+            <div class="form-group">
+                <label>Resume (PDF only)</label>
+                <input type="file" name="resume" accept=".pdf">
+            </div>
+            <button type="submit" class="btn-primary">Submit Bid</button>
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/jobs.js"></script>
+{% endblock %}

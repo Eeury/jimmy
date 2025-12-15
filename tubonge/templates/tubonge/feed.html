@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="tubonge-container">
+    <div class="feed-main-col">
+        <!-- Create Post Card -->
+        <div class="create-post-card">
+            <div class="post-input-trigger" id="post-input-area">
+                <div class="fake-input">What's on your mind, {{ user.username }}?</div>
+            </div>
+
+            <div class="post-expanded" id="post-expanded" style="display: none;">
+                <div class="post-header-simple">
+                    <span>Create Post</span>
+                    <button id="close-post-modal" class="icon-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="user-info-row">
+                    <span class="username">{{ user.username }}</span>
+                </div>
+                <textarea id="post-content" placeholder="What's on your mind, {{ user.username }}?"></textarea>
+                <div class="media-preview" id="media-preview"></div>
+                <div class="post-actions-row">
+                    <label for="post-media" class="media-upload-btn">
+                        <i class="fas fa-images"></i> Photo/Video
+                    </label>
+                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
+                    <button id="submit-post" class="btn-primary" disabled>Post</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed Stream -->
+        <div id="posts-feed" class="feed-stream">
+            <!-- Posts will be injected here by JS -->
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/feed.js"></script>
+{% endblock %}

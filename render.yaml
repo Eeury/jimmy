@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: able-connect
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn able_connect.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Able Connect - Link up, Skill up, Rise up!</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/">
+                <img src="/static/images/logo.png" alt="Able Connect Logo" class="logo-image">
+                <span>Able Connect</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            {% if user.is_pwd %}
+            <a href="/">Home</a>
+            <a href="/tubonge/">Tubonge</a>
+            <a href="/freelance/">Freelance</a>
+            <a href="/medical/">Medical</a>
+            {% else %}
+            <a href="/">Home</a>
+            <a href="/tubonge/">Tubonge</a>
+            <a href="/freelance/jobs/">Jobs</a>
+            <a href="/medical/services/">Services</a>
+            {% endif %}
+            <button id="logout-btn" class="btn-primary">Logout</button>
+            {% else %}
+            <a href="/">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <div class="auth-buttons">
+                <button id="login-btn" class="btn-secondary">Login</button>
+                <button id="signup-btn" class="btn-primary">Sign Up</button>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% if user.is_authenticated %}
+    <div class="chat-bubble" id="chat-bubble">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-interface" id="chat-interface">
+        <div class="chat-header">
+            <h3>Messages</h3>
+            <button id="close-chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-list" id="chat-list">
+            <!-- Conversations will be loaded here -->
+            <p class="no-messages">No conversation started</p>
+        </div>
+        <div class="chat-area" id="chat-area" style="display: none;">
+            <div class="chat-area-header">
+                <button id="back-to-list"><i class="fas fa-arrow-left"></i></button>
+                <span id="chat-user-name">User</span>
+            </div>
+            <div class="messages-container" id="messages-container">
+                <!-- Messages will be loaded here -->
+            </div>
+            <div class="message-input">
+                <input type="text" id="message-text" placeholder="Type a message...">
+                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Auth Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <div class="slider-container">
+                <div class="slider-controls">
+                    <button class="slider-btn login-slider-btn active" data-type="pwd">PWD</button>
+                    <button class="slider-btn login-slider-btn" data-type="client">Client</button>
+                </div>
+            </div>
+            <form id="login-form">
+                <input type="hidden" name="user_type" id="login-user-type" value="pwd">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input">
+                        <input type="password" name="password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <div class="slider-container">
+                <div class="slider-controls">
+                    <button class="slider-btn active" data-type="pwd">PWD</button>
+                    <button class="slider-btn" data-type="client">Client</button>
+                </div>
+
+                <form id="signup-form">
+                    <input type="hidden" name="user_type" id="user-type" value="pwd">
+
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number (254...)</label>
+                        <input type="text" name="phone_number" pattern="254\d{9}" title="Format: 254123456789" required>
+                    </div>
+
+                    <div id="pwd-fields">
+                        <div class="form-group">
+                            <label>Disability Type</label>
+                            <select name="disability_type">
+                                <option value="visual">Visual Impairment</option>
+                                <option value="hearing">Hearing Impairment</option>
+                                <option value="physical">Physical Disability</option>
+                                <option value="intellectual">Intellectual Disability</option>
+                                <option value="mental">Mental Health Condition</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="client-fields" style="display: none;">
+                        <div class="form-group">
+                            <label>Client Type</label>
+                            <div class="radio-group">
+                                <label class="radio-btn">
+                                    <input type="radio" name="client_type" value="freelance" checked>
+                                    <span>Freelance</span>
+                                </label>
+                                <label class="radio-btn">
+                                    <input type="radio" name="client_type" value="medical">
+                                    <span>Medical</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="password-input">
+                            <input type="password" name="password" id="signup-password" required>
+                            <i class="fas fa-eye toggle-password"></i>
+                        </div>
+                        <div class="password-strength" id="password-strength"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <div class="password-input">
+                            <input type="password" name="confirm_password" required>
+                            <i class="fas fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>&copy; 2025 Able Connect. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links (same-page navigation only)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    // Only handle hash links that are not just "#"
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/chat.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
